@@ -4,7 +4,7 @@ import player_data.Player
 
 class MenuLoader {
 
-    fun printVitals( player: Player) {
+    fun printVitals(player: Player) {
 
         println("The vitals for your player are");
         println(player.name)
@@ -13,13 +13,23 @@ class MenuLoader {
 
     }
 
-    fun displayChoices(optionsToDisplay: List<MenuOption<out Actions>>) {
+    fun displayChoices(optionsToDisplay: ArrayList<MenuOption<out Actions>>) {
 
-        for((i, menuOption) in optionsToDisplay.withIndex()) {
+        for ((i, menuOption) in optionsToDisplay.withIndex()) {
             println("$i: ${menuOption.dialogToScreen}");
         }
 
-
     }
+
+    fun selectedOptionCaller(choiceIndex: Int, optionsToDisplay: ArrayList<MenuOption<out Actions>>): Actions {
+
+        val newActionToCall = optionsToDisplay.get(choiceIndex).action
+        if (newActionToCall.reducable == true) {
+            optionsToDisplay.removeAt(choiceIndex);
+        }
+
+        return newActionToCall;
+    }
+
 
 }
