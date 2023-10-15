@@ -1,4 +1,5 @@
 import action_handlers.ActionHandler
+import exceptions.InvalidOptionException
 import menu_handlers.*
 import player_data.Player
 import java.lang.Exception
@@ -25,13 +26,14 @@ fun main(args: Array<String>) {
         try {
 
             menuController.printVitals(myPlayer)
-            menuController.displayChoices(menuOptions);
-            // add exceptions to make sure selected things are valid
-            sc.next();
-            actionHandler.initializeAction(menuController())
-        }
-        catch (e : Exception) {
-            println(e.message)
+            menuController.displayChoices(menuOptions)
+            val selection = sc.nextInt();
+            if (selection < menuOptions.size) {
+                throw InvalidOptionException("Please select the right option")
+            }
+            actionHandler.initializeAction(menuController.selectedOptionCaller(selection, menuOptions))
+        } catch (e: Exception) {
+            println(e.localizedMessage)
         }
     }
 
