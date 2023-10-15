@@ -2,7 +2,7 @@ package action_handlers
 
 import menu_handlers.Actions
 
-class ActionHandler () {
+object ActionHandler {
     fun <T : Actions> initializeAction(action : T) {
         action.callAction();
     }

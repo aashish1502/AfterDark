@@ -2,7 +2,7 @@ package menu_handlers
 
 import player_data.Player
 
-class MenuLoader {
+object MenuLoader {
 
     fun printVitals(player: Player) {
 

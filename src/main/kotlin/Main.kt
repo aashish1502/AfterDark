@@ -8,8 +8,6 @@ import java.util.Scanner
 
 
 val menuOptions: ArrayList<MenuOption<out Actions>> = ArrayList()
-val actionHandler = ActionHandler()
-val menuLoader = MenuLoader()
 
 
 fun main(args: Array<String>) {
@@ -20,18 +18,17 @@ fun main(args: Array<String>) {
     val sc = Scanner(System.`in`)
     val name = sc.next()
     val myPlayer = Player(name)
-    val menuController = MenuLoader();
 
     while (myPlayer.health > 0) {
         try {
 
-            menuController.printVitals(myPlayer)
-            menuController.displayChoices(menuOptions)
+            MenuLoader.printVitals(myPlayer)
+            MenuLoader.displayChoices(menuOptions)
             val selection = sc.nextInt();
-            if (selection < menuOptions.size) {
+            if (selection > menuOptions.size) {
                 throw InvalidOptionException("Please select the right option")
             }
-            actionHandler.initializeAction(menuController.selectedOptionCaller(selection, menuOptions))
+            ActionHandler.initializeAction(MenuLoader.selectedOptionCaller(selection, menuOptions))
         } catch (e: Exception) {
             println(e.localizedMessage)
         }
