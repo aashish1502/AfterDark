@@ -4,6 +4,12 @@ import player_data.Player
 
 object MenuLoader {
 
+    private val optionsToDisplay = ArrayList<MenuOption<Actions>>().apply {
+            add(MenuOption(OpenShopAction(), "Open Shop"))
+            add(MenuOption(ExitAction(), "Exit"))
+    }
+
+
     fun printVitals(player: Player) {
 
         println("The vitals for your player are");
@@ -13,7 +19,11 @@ object MenuLoader {
 
     }
 
-    fun displayChoices(optionsToDisplay: ArrayList<MenuOption<out Actions>>) {
+    fun getMenuLength() : Int {
+        return optionsToDisplay.size;
+    }
+
+    fun displayChoices() {
 
         for ((i, menuOption) in optionsToDisplay.withIndex()) {
             println("$i: ${menuOption.dialogToScreen}");
@@ -21,10 +31,10 @@ object MenuLoader {
 
     }
 
-    fun selectedOptionCaller(choiceIndex: Int, optionsToDisplay: ArrayList<MenuOption<out Actions>>): Actions {
+    fun selectedOptionCaller(choiceIndex: Int): Actions {
 
-        val newActionToCall = optionsToDisplay.get(choiceIndex).action
-        if (newActionToCall.reducable == true) {
+        val newActionToCall = optionsToDisplay[choiceIndex].action
+        if (newActionToCall.reducable) {
             optionsToDisplay.removeAt(choiceIndex);
         }
 

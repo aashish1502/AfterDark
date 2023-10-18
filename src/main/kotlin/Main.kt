@@ -7,13 +7,12 @@ import java.util.Objects
 import java.util.Scanner
 
 
-val menuOptions: ArrayList<MenuOption<out Actions>> = ArrayList()
-
+/*
+* TODO: Create producers and consumers for actions so that you can save memory
+*   - Implement a way to save the state of objects and attributes of the user so that the user can continue where they left off.
+* */
 
 fun main(args: Array<String>) {
-
-    menuOptions.add(MenuOption(OpenShopAction(), "Open Shop"))
-    menuOptions.add(MenuOption(ExitAction(), "Exit"))
 
     val sc = Scanner(System.`in`)
     val name = sc.next()
@@ -23,17 +22,16 @@ fun main(args: Array<String>) {
         try {
 
             MenuLoader.printVitals(myPlayer)
-            MenuLoader.displayChoices(menuOptions)
+            MenuLoader.displayChoices()
             val selection = sc.nextInt();
-            if (selection > menuOptions.size) {
+            if (selection > MenuLoader.getMenuLength()) {
                 throw InvalidOptionException("Please select the right option")
             }
-            ActionHandler.initializeAction(MenuLoader.selectedOptionCaller(selection, menuOptions))
+            ActionHandler.initializeAction(MenuLoader.selectedOptionCaller(selection))
         } catch (e: Exception) {
             println(e.localizedMessage)
         }
     }
-
 
 }
 
