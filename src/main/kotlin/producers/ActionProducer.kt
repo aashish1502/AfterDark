@@ -1,8 +1,9 @@
 package producers
 
 import menu_handlers.Actions
+import menu_handlers.ExitAction
 import menu_handlers.OpenShopAction
-import java.lang.Exception
+import kotlin.Exception
 
 /*
 * This file code contains the singleton object of ActionProducer
@@ -18,13 +19,14 @@ import java.lang.Exception
 
 object ActionProducer {
 
-    fun <T : Actions> _CreateAction(actionString : String) : T {
+    fun <T : Actions> _CreateAction(actionString : String) : T  {
 
         when(actionString) {
             "shopOpenObject" -> return OpenShopAction() as T
+            "exitGameObject" -> return ExitAction() as T
         }
 
-        return;
+        throw Exception("Unknown action: $actionString")
 
     }
 

@@ -1,13 +1,16 @@
 package menu_handlers
 
 import player_data.Player
+import producers.ActionProducer
 
 object MenuLoader {
 
-    private val optionsToDisplay = ArrayList<MenuOption<Actions>>().apply {
-            add(MenuOption(OpenShopAction(), "Open Shop"))
-            add(MenuOption(ExitAction(), "Exit"))
-    }
+    private val actionProducer = ActionProducer;
+
+    private val optionsToDisplay = mutableListOf(
+        MenuOptionVersionTwo("shopOpenObject", "Open Shop"),
+        MenuOptionVersionTwo("exitGameObject", "Exit")
+    )
 
 
     fun printVitals(player: Player) {
@@ -33,8 +36,8 @@ object MenuLoader {
 
     fun selectedOptionCaller(choiceIndex: Int): Actions {
 
-        val newActionToCall = optionsToDisplay[choiceIndex].action
-        if (newActionToCall.reducable) {
+        val newActionToCall = actionProducer._CreateAction<Actions>(optionsToDisplay.get(choiceIndex).action)
+        if (newActionToCall.reducible) {
             optionsToDisplay.removeAt(choiceIndex);
         }
 
